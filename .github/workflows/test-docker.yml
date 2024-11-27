@@ -26,3 +26,9 @@ jobs:
 
       - name: Logout from Docker Hub 🚪
         run: docker logout
+
+      - name: Notify discord 📢
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
