@@ -13,9 +13,13 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
       - name: Build Docker Image 🏗️
         id: build
-        run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher .
+        run: docker buildx build -t ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher:${{ steps.package-version.outputs.current-version }} -t ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher:latest .
 
       - name: Login to Docker Hub 🐳
         id: login
@@ -26,4 +30,4 @@ jobs:
 
       - name: Push to Docker Hub 🚀
         id: push
-        run: docker push ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher
+        run: docker push -a ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher
