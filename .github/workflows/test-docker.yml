@@ -7,17 +7,35 @@ on:
       - closed
     branches:
       - main
+  push:
+    branches:
+      - dev
 
 jobs:
   build-and-deploy:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      - name: Initiate the deployment launch sequence
+        id: slack
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            text: "Deployment started :eyes:"
+            attachments:
+              - color: "dbab09"
+                fields:
+                  - title: "Status"
+                    short: true
+                    value: "In Progress"
+
       - name: check repository out 🛎️
         id: checkout
         uses: actions/checkout@v4
 
-      - name: get-npm-version
+      - name: get-npm-version 📦
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
 
@@ -35,3 +53,19 @@ jobs:
       - name: Push to Docker Hub 🚀
         id: push
         run: docker push -a ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher
+
+      - name: Update the original message with success
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          method: chat.update
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            channel: ${{ secrets.SLACK_CHANNEL_ID }}
+            ts: "${{ steps.slack.outputs.ts }}"
+            text: "Deployment finished! :rocket:"
+            attachments:
+              - color: "28a745"
+                fields:
+                  - title: "Status"
+                    short: true
+                    value: "Completed"
