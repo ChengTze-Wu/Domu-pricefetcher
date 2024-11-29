@@ -7,15 +7,12 @@ on:
       - closed
     branches:
       - main
-  push:
-    branches:
-      - dev
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Initiate the deployment launch sequence
+      - name: Initiate the deployment launch sequence 🚀
         id: slack
         uses: slackapi/slack-github-action@v2.0.0
         with:
@@ -54,7 +51,7 @@ jobs:
         id: push
         run: docker push -a ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher
 
-      - name: Update the original message with success
+      - name: Update the original message with success 🎉
         uses: slackapi/slack-github-action@v2.0.0
         with:
           method: chat.update
