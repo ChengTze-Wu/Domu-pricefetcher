@@ -23,7 +23,7 @@ jobs:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
-            text: "Build and Deploy started :eyes:"
+            text: "[${{ github.repository }}] Build and Deploy started :eyes:"
             attachments:
               - color: "dbab09"
                 fields:
@@ -62,15 +62,10 @@ jobs:
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             ts: "${{ steps.slack.outputs.ts }}"
-            text: "Build and Deploy finished! :rocket:"
+            text: "[${{ github.repository }}] Build and Deploy finished! :rocket:\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
             attachments:
               - color: "28a745"
                 fields:
                   - title: "Status"
                     short: true
                     value: "Completed"
-            blocks:
-              - type: "section"
-                text:
-                  type: "mrkdwn"
-                  text: "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
