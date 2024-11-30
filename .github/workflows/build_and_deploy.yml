@@ -7,9 +7,6 @@ on:
       - closed
     branches:
       - main
-  push:
-    branches:
-      - dev
 
 jobs:
   build-and-deploy:
@@ -67,7 +64,7 @@ jobs:
           payload: |
             channel: ${{ secrets.SLACK_CHANNEL_ID }}
             ts: "${{ steps.slack.outputs.ts }}"
-            text: "[${{ github.repository }}] Build and Deploy finished! :rocket:\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+            text: "[${{ github.repository }}] Build and Deploy finished! :rocket:\n${{ github.event.pull_request.html_url }}"
             attachments:
               - color: "28a745"
                 fields:
