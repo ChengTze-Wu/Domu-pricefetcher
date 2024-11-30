@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "price-fetcher",
+  "name": "pricefetcher",
   "version": "1.0.1",
   "main": "app.js",
   "scripts": {

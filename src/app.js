@@ -100,7 +100,7 @@ app.listen(
   () => {
     const isoDatetime = moment().format();
     console.info(
-      `[${isoDatetime} INFO] GetPrice running on http://${HOST}:${PORT} (Press CTRL+C to quit)`
+      `[${isoDatetime} INFO] PriceFetcher running on http://${HOST}:${PORT} (Press CTRL+C to quit)`
     );
   }
 );
