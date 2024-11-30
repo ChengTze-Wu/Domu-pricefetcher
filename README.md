@@ -1,4 +1,4 @@
-# Domu PriceFetcher
+# PriceFetcher
 
 查詢內政部房價實價登錄資料的 API APP。由於內政部的查詢 URL 被加密，本專案提供了橋接後的 API 供查詢。提供了兩個主要的 API Endpoint，用於生成查詢 URL 和取得實價登錄資料。
 
