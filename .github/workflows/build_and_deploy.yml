@@ -54,6 +54,11 @@ jobs:
         id: push
         run: docker push -a ${{ vars.DOCKERHUB_USERNAME }}/price-fetcher
 
+      - name: Deploy by watchtower API 🚢
+        id: deploy
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.WATCHTOWER_TOKEN }}" ${{ secrets.WATCHTOWER_UPDATE_URL }}
+
       - name: Update the original message with success 🎉
         uses: slackapi/slack-github-action@v2.0.0
         with:
