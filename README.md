@@ -1,6 +1,6 @@
 # PriceFetcher
 
-**PriceFetcher** 是一個針對內政部房價實價登錄資料設計的 API 框架，旨在解決官方查詢 URL 加密的問題。此專案提供兩個主要 API Endpoint，方便開發者整合使用：
+**PriceFetcher** 是一個針對內政部房價實價登錄資料設計的 API，旨在解決官方查詢 URL 加密的問題。此專案提供兩個主要 API Endpoint，方便開發者整合使用：
 
 1. **[URL 生成 (GET /priceUrl)](#1-get-priceurl)**：產生查詢用的加密 URL。
 2. **[數據獲取 (GET /priceData)](#2-get-pricedata)**：直接取得實價登錄的查詢結果。
