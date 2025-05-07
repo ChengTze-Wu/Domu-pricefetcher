@@ -12,6 +12,7 @@
 ### 1. 本地環境啟動
 
 1. **下載專案**
+
    ```bash
    git clone git@github.com:ChengTze-Wu/Domu-pricefetcher.git
    ```
@@ -20,6 +21,7 @@
    詳情請參考 [Node.js 官方文件](https://nodejs.org/en/download/package-manager)。
 
 3. **安裝相依套件**
+
    ```bash
    cd Domu-pricefetcher && npm install
    ```
@@ -34,6 +36,7 @@
 ### 2. Docker 環境啟動
 
 1. **建置 Docker 映像檔**
+
    ```bash
    cd Domu-pricefetcher && docker build -t domu-pricefetcher .
    ```
@@ -53,16 +56,17 @@
 
 #### **Query Parameters**
 
-| 參數名稱  | 說明          | 範例        |
-| --------- | ------------- | ----------- |
-| `city`    | 縣市名稱       | 台北市      |
-| `town`    | 鄉鎮市區名稱   | 中正區      |
-| `start`   | 開始日期 (民國年) | 110,1       |
-| `end`     | 結束日期 (民國年) | 110,12      |
+| 參數名稱 | 說明                 | 範例   |
+| -------- | -------------------- | ------ |
+| `city`   | 縣市名稱             | 台北市 |
+| `town`   | 鄉鎮市區名稱         | 中正區 |
+| `start`  | 開始日期（西元年月） | 202101 |
+| `end`    | 結束日期（西元年月） | 202111 |
 
 #### **範例請求**
+
 ```http
-GET /priceUrl?city=台北市&town=中正區&start=110,1&end=110,12
+GET /priceUrl?city=台北市&town=中正區&start=202101&end=202111
 ```
 
 ---
@@ -73,14 +77,15 @@ GET /priceUrl?city=台北市&town=中正區&start=110,1&end=110,12
 
 #### **Query Parameters**
 
-| 參數名稱  | 說明          | 範例        |
-| --------- | ------------- | ----------- |
-| `city`    | 縣市名稱       | 台北市      |
-| `town`    | 鄉鎮市區名稱   | 中正區      |
-| `start`   | 開始日期 (民國年) | 110,1       |
-| `end`     | 結束日期 (民國年) | 110,12      |
+| 參數名稱 | 說明                 | 範例   |
+| -------- | -------------------- | ------ |
+| `city`   | 縣市名稱             | 台北市 |
+| `town`   | 鄉鎮市區名稱         | 中正區 |
+| `start`  | 開始日期（西元年月） | 202101 |
+| `end`    | 結束日期（西元年月） | 202111 |
 
 #### **範例請求**
+
 ```http
-GET /priceData?city=台北市&town=中正區&start=110,1&end=110,12
+GET /priceData?city=台北市&town=中正區&start=202101&end=202111
 ```
