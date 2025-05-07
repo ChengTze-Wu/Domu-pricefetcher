@@ -7,6 +7,7 @@ import { validateQueryParams, errorHandler } from "./middleware.js";
 import { generateSearchUrl } from "./lib/searchUrlGenerator.js";
 import { cityMapping, townAMapping, defaultDataObj } from "./data.js";
 import { fetchPriceData } from "./dataFetcher.js";
+import { parseYearMonthToRocFormat } from "./utils.js";
 
 const app = express();
 const PORT = process.env.PORT || 3500;
@@ -31,19 +32,9 @@ function getTownCode(town) {
   return townCode;
 }
 
-function parseDate(date) {
-  const [yearStr, monthStr] = date.split(",");
-  const year = parseInt(yearStr, 10);
-  const month = parseInt(monthStr, 10);
-  if (isNaN(year) || isNaN(month) || month < 1 || month > 12) {
-    throw new BadRequestError("Invalid date format");
-  }
-  return { year, month };
-}
-
 function createDataObject(cityCode, townCode, start, end) {
-  const { year: starty, month: startm } = parseDate(start);
-  const { year: endy, month: endm } = parseDate(end);
+  const { year: starty, month: startm } = parseYearMonthToRocFormat(start);
+  const { year: endy, month: endm } = parseYearMonthToRocFormat(end);
   return {
     ...defaultDataObj,
     city: cityCode,

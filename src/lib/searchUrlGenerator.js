@@ -21,7 +21,7 @@ function loadScript(scriptPath) {
 
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
 const vendorPath = path.resolve(currentDir, "vendor.bundle.js");
-const commonPath = path.resolve(currentDir, "common.bundle.js");
+const commonPath = path.resolve(currentDir, "common.bundle.min.js");
 loadScript(vendorPath);
 loadScript(commonPath);
 
