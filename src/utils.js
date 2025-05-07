@@ -3,7 +3,11 @@ import moment from "moment/moment.js";
 import { BadRequestError } from "./error.js";
 
 export function parseYearMonthToRocFormat(yearMonthStr) {
-  const yearMonth = moment(yearMonthStr, "YYYYMM");
+  const yearMonth = moment(
+    yearMonthStr,
+    ["YYYYMM", "YYYY/MM", "YYYY-MM", "YYYY,MM", "YYYY.MM"],
+    true
+  );
   if (!yearMonth.isValid()) {
     throw new BadRequestError("Invalid date format");
   }
