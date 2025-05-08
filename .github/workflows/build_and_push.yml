@@ -1,0 +1,52 @@
+name: "Build and Push Image to Artifact Registry"
+run-name: ${{ github.actor }} - ${{ github.event_name }}
+
+on:
+  release:
+    types: [published]
+
+env:
+  PROJECT_ID: "chengtze"
+  VERSION: ${{ github.event.release.tag_name }}
+  SERVICE_ACCOUNT: ${{ vars.SERVICE_ACCOUNT }}
+  WORKLOAD_IDENTITY_PROVIDER: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+  AR_URL: ${{ vars.AR_URL }}
+  AR_REPO_LOCATION: "asia-east1"
+  IMAGE_NAME: "domu-pricefetcher"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - name: check repository out 🛎️
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Google Cloud 🌐
+        id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          token_format: "access_token"
+          project_id: ${{ env.PROJECT_ID }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+
+      - name: Login to Docker Hub 🐳
+        uses: docker/login-action@v3
+        with:
+          username: "oauth2accesstoken"
+          password: ${{ steps.auth.outputs.access_token }}
+          registry: ${{ env.AR_REPO_LOCATION }}-docker.pkg.dev
+
+      - name: Build Docker Image 🏗️
+        run: docker build
+          -t ${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          -t ${{ env.AR_URL }}/${{ env.IMAGE_NAME }}:latest .
+
+      - name: Push to Artifact Registry 🚀
+        run: docker push -a ${{ env.AR_URL }}/${{ env.IMAGE_NAME }}
